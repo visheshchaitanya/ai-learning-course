@@ -1,0 +1,92 @@
+[
+  {
+    "question": "How do I reset my password?",
+    "answer": "Click 'Forgot Password' on the login page, enter your email, and follow the instructions sent to your inbox.",
+    "category": "account",
+    "tags": ["password", "login", "security"]
+  },
+  {
+    "question": "What is the process to change my password?",
+    "answer": "Go to Settings > Security > Change Password. Enter your current password and then your new password twice.",
+    "category": "account",
+    "tags": ["password", "security"]
+  },
+  {
+    "question": "How can I update my email address?",
+    "answer": "Navigate to Settings > Profile > Email. Enter your new email and verify it through the confirmation link.",
+    "category": "account",
+    "tags": ["email", "profile"]
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "answer": "We accept credit cards (Visa, MasterCard, Amex), PayPal, and bank transfers for enterprise accounts.",
+    "category": "billing",
+    "tags": ["payment", "billing"]
+  },
+  {
+    "question": "How do I cancel my subscription?",
+    "answer": "Go to Settings > Billing > Cancel Subscription. Your access will continue until the end of your billing period.",
+    "category": "billing",
+    "tags": ["subscription", "cancel", "billing"]
+  },
+  {
+    "question": "Can I get a refund?",
+    "answer": "Refunds are available within 30 days of purchase. Contact support@example.com with your order number.",
+    "category": "billing",
+    "tags": ["refund", "billing", "support"]
+  },
+  {
+    "question": "How do I export my data?",
+    "answer": "Go to Settings > Data > Export. Choose your format (CSV, JSON, or PDF) and click 'Download'.",
+    "category": "data",
+    "tags": ["export", "data", "download"]
+  },
+  {
+    "question": "Is my data secure?",
+    "answer": "Yes, we use AES-256 encryption for data at rest and TLS 1.3 for data in transit. We're SOC 2 Type II certified.",
+    "category": "security",
+    "tags": ["security", "encryption", "privacy"]
+  },
+  {
+    "question": "How do I contact customer support?",
+    "answer": "Email support@example.com, use the chat widget in the bottom right, or call 1-800-SUPPORT (Mon-Fri, 9am-5pm EST).",
+    "category": "support",
+    "tags": ["support", "contact", "help"]
+  },
+  {
+    "question": "What are your business hours?",
+    "answer": "Our support team is available Monday through Friday, 9am to 5pm Eastern Time. Email support is monitored 24/7.",
+    "category": "support",
+    "tags": ["hours", "support", "availability"]
+  },
+  {
+    "question": "How do I delete my account?",
+    "answer": "Go to Settings > Account > Delete Account. This action is permanent and cannot be undone. All your data will be deleted within 30 days.",
+    "category": "account",
+    "tags": ["delete", "account", "privacy"]
+  },
+  {
+    "question": "Can I use the service on mobile devices?",
+    "answer": "Yes, we have native iOS and Android apps. You can also access our service through any mobile web browser.",
+    "category": "technical",
+    "tags": ["mobile", "app", "devices"]
+  },
+  {
+    "question": "What browsers do you support?",
+    "answer": "We support the latest versions of Chrome, Firefox, Safari, and Edge. Internet Explorer is not supported.",
+    "category": "technical",
+    "tags": ["browser", "compatibility", "technical"]
+  },
+  {
+    "question": "How do I enable two-factor authentication?",
+    "answer": "Go to Settings > Security > Two-Factor Authentication. Scan the QR code with your authenticator app and enter the verification code.",
+    "category": "security",
+    "tags": ["2fa", "security", "authentication"]
+  },
+  {
+    "question": "What happens if I exceed my usage limit?",
+    "answer": "You'll receive an email notification at 80% and 100% usage. After exceeding, you can upgrade your plan or wait until next billing cycle.",
+    "category": "billing",
+    "tags": ["limits", "usage", "billing"]
+  }
+]

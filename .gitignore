@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+*.db
+*.sqlite3
+faq_vectorstore/
+.DS_Store
