@@ -57,9 +57,26 @@ reranked = reranker.rerank(original_query, all_docs)
 answer = llm.invoke(format_context(reranked[:3]))
 ```
 
+### Evaluation Metrics
+
+**Retrieval Quality:**
+- Precision@K: Relevant docs in top K
+- Recall@K: % of relevant docs retrieved
+- MRR: Mean Reciprocal Rank
+
+**Answer Quality:**
+- Faithfulness: Answer grounded in context
+- Relevance: Answers the question
+- Completeness: Covers all aspects
+
 ## Challenge
 
-Build an **Advanced RAG System** with query transformation, multi-query retrieval, re-ranking, and answer synthesis.
+Build an **Advanced RAG System** with:
+- Query transformation (rewriting, expansion)
+- Multi-query retrieval
+- Re-ranking with cross-encoder
+- Answer synthesis with citations
+- Evaluation metrics
 
 See `demo.py`, `challenge.py`, `solution.py`, and `advanced_techniques.py` for examples.
 
@@ -67,3 +84,4 @@ See `demo.py`, `challenge.py`, `solution.py`, and `advanced_techniques.py` for e
 - [Advanced RAG](https://python.langchain.com/docs/use_cases/question_answering/advanced/)
 - [HyDE Paper](https://arxiv.org/abs/2212.10496)
 - [Query Transformation](https://python.langchain.com/docs/use_cases/query_analysis/)
+- [RAG Evaluation](https://docs.ragas.io/)

@@ -1,0 +1,10 @@
+"""Lesson 16 Demo: FastAPI Deployment Patterns"""
+print("Demo: See api.py for complete production FastAPI implementation")
+print("Key features:")
+print("  - API key authentication")
+print("  - Rate limiting")
+print("  - Structured logging")
+print("  - Health checks")
+print("  - Metrics endpoint")
+print("\nRun: uvicorn api:app --reload")
+print("Test: python test_api.py")

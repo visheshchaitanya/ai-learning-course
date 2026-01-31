@@ -35,12 +35,45 @@ Always validate generated code:
 - Unit tests
 - Security scanning
 
+### Validation Pipeline
+
+```python
+def validate_generated_code(code: str) -> dict:
+    """Validate generated code"""
+    results = {
+        "syntax_valid": False,
+        "has_docstring": False,
+        "has_tests": False,
+        "passes_tests": False
+    }
+    
+    # Syntax check
+    try:
+        ast.parse(code)
+        results["syntax_valid"] = True
+    except SyntaxError:
+        return results
+    
+    # Check for docstrings
+    results["has_docstring"] = '"""' in code or "'''" in code
+    
+    # Additional checks...
+    return results
+```
+
 ## Challenge
 
-Build a **Code Generator** that takes a feature description, generates Python code, writes tests, and validates the output.
+Build a **Code Generator** that:
+- Takes feature description
+- Generates Python function with CodeLlama
+- Creates unit tests
+- Validates syntax with ast.parse()
+- Runs tests
+- Provides feedback
 
-See `demo.py`, `challenge.py`, `solution.py`, and `templates/` for examples.
+See `demo.py`, `challenge.py`, and `solution.py` for examples.
 
 ## Resources
 - [CodeLlama](https://ollama.com/library/codellama)
 - [Code Generation Guide](https://python.langchain.com/docs/use_cases/code_understanding/)
+- [AST Module](https://docs.python.org/3/library/ast.html)

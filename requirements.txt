@@ -45,3 +45,7 @@ langsmith>=0.1.117
 
 # MCP (Model Context Protocol)
 mcp
+
+# Additional dependencies for lessons
+wikipedia==1.4.0  # Lesson 7 (agents with Wikipedia tool)
+pillow==10.0.0    # Lesson 17 (multimodal AI - image processing)

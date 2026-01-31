@@ -39,12 +39,47 @@ COPY . .
 CMD ["uvicorn", "api:app", "--host", "0.0.0.0"]
 ```
 
+### Production Checklist
+
+**Security:**
+- [ ] API key authentication
+- [ ] Rate limiting
+- [ ] Input validation
+- [ ] HTTPS/TLS
+- [ ] CORS configuration
+
+**Monitoring:**
+- [ ] Logging (structured)
+- [ ] Metrics (Prometheus)
+- [ ] Health checks
+- [ ] Error tracking
+
+**Performance:**
+- [ ] Async operations
+- [ ] Connection pooling
+- [ ] Caching
+- [ ] Load balancing
+
+**Deployment:**
+- [ ] Docker containerization
+- [ ] Environment variables
+- [ ] CI/CD pipeline
+- [ ] Rollback strategy
+
 ## Challenge
 
-Deploy a **Production RAG API** with authentication, rate limiting, and monitoring.
+Deploy a **Production RAG API** with:
+- FastAPI endpoints
+- API key authentication
+- Rate limiting middleware
+- Structured logging
+- Health checks
+- Docker containerization
+- Comprehensive tests
 
-See `api.py`, `docker-compose.yml`, `Dockerfile`, `deploy.sh`, and `test_api.py` for examples.
+See `api.py`, `demo.py`, `test_api.py`, `challenge.py`, and `solution.py` for examples.
 
 ## Resources
 - [FastAPI Docs](https://fastapi.tiangolo.com/)
 - [Docker Docs](https://docs.docker.com/)
+- [FastAPI Best Practices](https://github.com/zhanymkanov/fastapi-best-practices)

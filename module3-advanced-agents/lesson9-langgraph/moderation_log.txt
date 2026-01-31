@@ -1,0 +1,15 @@
+This is a great product! Love it!
+Decision.APPROVE
+Clean and positive
+3
+
+This is spam and abuse
+Decision.REJECT
+Toxic content detected or negative sentiment
+3
+
+This is okay, nothing special
+Decision.REVIEW
+Requires human review
+3
+

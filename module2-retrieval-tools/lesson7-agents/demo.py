@@ -68,7 +68,7 @@ Thought: {agent_scratchpad}"""
         agent=agent,
         tools=tools,
         verbose=True,
-        max_iterations=5,
+        max_iterations=10,
         handle_parsing_errors=True
     )
     
@@ -110,7 +110,7 @@ Thought: {agent_scratchpad}"""
         agent=agent,
         tools=tools,
         verbose=True,
-        max_iterations=5,
+        max_iterations=10,
         handle_parsing_errors=True
     )
     
@@ -157,7 +157,7 @@ Thought: {agent_scratchpad}"""
         tools=tools,
         memory=memory,
         verbose=True,
-        max_iterations=5,
+        max_iterations=10,
         handle_parsing_errors=True
     )
     
@@ -214,7 +214,7 @@ Thought: {agent_scratchpad}"""
         agent=agent,
         tools=tools,
         verbose=True,
-        max_iterations=3,
+        max_iterations=10,
         handle_parsing_errors=True
     )
     

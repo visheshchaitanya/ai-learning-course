@@ -15,12 +15,61 @@ LangGraph is a library for building stateful, multi-actor applications with LLMs
 
 **1. State**: Shared data passed between nodes
 ```python
-from typing import TypedDict
+from typing import TypedDict, Annotated
+import operator
 
 class State(TypedDict):
     messages: list
     count: int
 ```
+
+**State Reducers**: Control how state updates are merged
+
+By default, state fields are **replaced** on each update. Use `Annotated` with a reducer function to **accumulate** values instead:
+
+```python
+from typing import Annotated
+import operator
+
+class State(TypedDict):
+    # Default behavior: replaces the list
+    items: list
+    
+    # With reducer: appends to the list
+    messages: Annotated[list, operator.add]
+    
+    # Custom reducer for dicts
+    metadata: Annotated[dict, operator.or_]
+```
+
+**Example - Without Reducer (Replace):**
+```python
+class ReplaceState(TypedDict):
+    items: list
+
+def node1(state): return {"items": ["A"]}
+def node2(state): return {"items": ["B"]}
+def node3(state): return {"items": ["C"]}
+
+# Result: {"items": ["C"]}  # Only last value
+```
+
+**Example - With Reducer (Accumulate):**
+```python
+class AccumulateState(TypedDict):
+    items: Annotated[list, operator.add]
+
+def node1(state): return {"items": ["A"]}
+def node2(state): return {"items": ["B"]}
+def node3(state): return {"items": ["C"]}
+
+# Result: {"items": ["A", "B", "C"]}  # All values accumulated
+```
+
+**Common Reducers:**
+- `operator.add` - Concatenate lists/strings, add numbers
+- `operator.or_` - Merge dicts (right side wins on conflicts)
+- Custom function - `lambda old, new: old + new`
 
 **2. Nodes**: Functions that process state
 ```python

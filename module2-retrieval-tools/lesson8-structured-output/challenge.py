@@ -16,6 +16,7 @@ from enum import Enum
 from langchain_community.chat_models import ChatOllama
 from langchain_core.output_parsers import JsonOutputParser
 from langchain.prompts import ChatPromptTemplate
+import traceback
 
 
 # TODO: Define enums
@@ -50,13 +51,38 @@ class ParsedEmail(BaseModel):
     sentiment: Sentiment
     action_items: List[str] = Field(default_factory=list)
     priority: Priority
-    category: Category
+    category: Category = Field(default=Category.WORK, description="Email category: work, personal, or spam")
 
 
 def parse_email(email_text: str) -> ParsedEmail:
     """Parse email text into structured format"""
     # TODO: Implement email parsing with LLM
-    pass
+    llm = ChatOllama(model="llama3.2", format="json", temperature=0)
+    prompt = ChatPromptTemplate.from_template("""
+Parse the following email and extract structured information.
+
+Email:
+{email_text}
+
+Return JSON with this exact structure:
+{format_instructions}
+
+Analyze the email content to determine:
+- sentiment: positive/neutral/negative based on tone
+- priority: low/medium/high based on urgency indicators
+- category: work/personal/spam based on content
+- action_items: numbered or bulleted tasks mentioned
+
+JSON:""")
+    
+    chain = prompt | llm | JsonOutputParser(pydantic_object=ParsedEmail)
+    
+    result = chain.invoke({
+        "email_text": email_text,
+        "format_instructions": JsonOutputParser(pydantic_object=ParsedEmail).get_format_instructions()
+    })
+    
+    return ParsedEmail(**result)
 
 
 def main():
@@ -87,10 +113,13 @@ Alice
     print(sample_email)
     print("\n" + "=" * 60 + "\n")
     
-    # TODO: Parse email
-    # result = parse_email(sample_email)
-    # print("Parsed Output:")
-    # print(result.model_dump_json(indent=2))
+    try:
+        result = parse_email(sample_email)
+        print("Parsed Output:")
+        print(result.model_dump_json(indent=2))
+    except Exception as e:
+        print(f"Error: {e}")
+        print(traceback.format_exc())
 
 
 if __name__ == "__main__":

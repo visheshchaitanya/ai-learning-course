@@ -7,6 +7,7 @@ Build a graph-based content moderation system.
 from langgraph.graph import StateGraph, END
 from typing import TypedDict
 from enum import Enum
+import traceback
 
 
 class Decision(str, Enum):
@@ -67,9 +68,9 @@ def analyze_sentiment(state: ModerationState) -> ModerationState:
 def make_decision(state: ModerationState) -> ModerationState:
     """Make moderation decision"""
     # TODO: Implement decision logic
-    if state["is_toxic"]:
+    if state["is_toxic"] or state["sentiment"] == "negative":
         state["decision"] = Decision.REJECT
-        state["reason"] = "Toxic content detected"
+        state["reason"] = "Toxic content detected or negative sentiment"
     elif state["sentiment"] == "positive":
         state["decision"] = Decision.APPROVE
         state["reason"] = "Clean and positive"
@@ -83,9 +84,8 @@ def make_decision(state: ModerationState) -> ModerationState:
 def log_decision(state: ModerationState) -> ModerationState:
     """Log the decision"""
     # TODO: Log to file
-    print(f"\n📋 Decision: {state['decision']}")
-    print(f"   Reason: {state['reason']}")
-    print(f"   Checks performed: {state['checks']}")
+    with open("moderation_log.txt", "a") as f:
+        f.write(f"{state['content']}\n{state['decision']}\n{state['reason']}\n{state['checks']}\n\n")
     return state
 
 
@@ -96,7 +96,19 @@ def create_moderation_pipeline():
     # TODO: Add nodes
     # TODO: Add edges (including conditional)
     # TODO: Compile and return
-    pass
+    workflow = StateGraph(ModerationState)
+    workflow.add_node("detect_language", detect_language)
+    workflow.add_node("check_toxicity", check_toxicity)
+    workflow.add_node("analyze_sentiment", analyze_sentiment)
+    workflow.add_node("make_decision", make_decision)
+    workflow.add_node("log_decision", log_decision)
+    workflow.set_entry_point("detect_language")
+    workflow.add_edge("detect_language", "check_toxicity")
+    workflow.add_edge("check_toxicity", "analyze_sentiment")
+    workflow.add_edge("analyze_sentiment", "make_decision")
+    workflow.add_edge("make_decision", "log_decision")
+    workflow.add_edge("log_decision", END)
+    return workflow.compile()
 
 
 def main():
@@ -112,21 +124,30 @@ def main():
     print("=" * 60 + "\n")
     
     # TODO: Create pipeline
-    # app = create_moderation_pipeline()
+    app = create_moderation_pipeline()
     
     for content in test_content:
         print(f"Content: {content}")
         # TODO: Run moderation
-        # result = app.invoke({
-        #     "content": content,
-        #     "language": "",
-        #     "is_toxic": False,
-        #     "sentiment": "",
-        #     "decision": "",
-        #     "reason": "",
-        #     "checks": 0
-        # })
-        print()
+        try:
+            result = app.invoke({
+                "content": content,
+                "language": "",
+                "is_toxic": False,
+                "sentiment": "",
+                "decision": "",
+                "reason": "",
+                "checks": 0
+            })
+        except Exception as e:
+            print(f"Error: {e}")
+            print(traceback.format_exc())
+            continue
+        
+        print(f"Decision: {result['decision']}")
+        print(f"Reason: {result['reason']}")
+        print(f"Checks: {result['checks']}")
+        print()   
 
 
 if __name__ == "__main__":

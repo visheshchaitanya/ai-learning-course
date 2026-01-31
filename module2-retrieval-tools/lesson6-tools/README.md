@@ -122,10 +122,42 @@ LangChain provides many built-in tools:
 
 ### Tool Calling vs Function Calling
 
-**Tool Calling**: LangChain's abstraction (works with any LLM)  
-**Function Calling**: Native LLM feature (GPT-4, Claude, etc.)
+These terms are often used interchangeably, but there are important distinctions:
 
-For local models (Ollama), we use tool calling with prompting.
+**Function Calling** (Native LLM Feature):
+- Built into modern LLMs (GPT-4, GPT-3.5-turbo, Claude 3+, Gemini)
+- LLM is trained to output structured JSON matching function schemas
+- The model outputs: function name + arguments as JSON
+- YOU execute the function and return results to the LLM
+- Protocol: `functions` or `tools` parameter in API calls
+- More reliable—model is specifically trained for this
+
+Example flow:
+```
+User: "What's the weather in SF?"
+→ LLM outputs: {"name": "get_weather", "arguments": {"location": "San Francisco"}}
+→ You call get_weather("San Francisco")
+→ You send result back to LLM
+→ LLM responds: "It's 72°F in San Francisco"
+```
+
+**Tool Calling** (Framework Abstraction):
+- LangChain/framework wrapper around function calling
+- Provides unified interface across different LLMs
+- Handles the execute-and-return loop automatically
+- Works with models that don't have native function calling (via prompting)
+- Includes tool definition, invocation, and result handling
+
+Key differences:
+- **Function calling** = LLM capability (model outputs structured function calls)
+- **Tool calling** = Framework pattern (abstracts the entire flow)
+- Function calling requires you to manually execute functions
+- Tool calling can auto-execute and manage the loop
+
+**For OpenAI/Anthropic**: Use native function calling (more reliable)  
+**For Ollama/local models**: Use tool calling with prompt engineering (model may not be trained for it)
+
+LangChain's tool abstraction works with both—it uses native function calling when available, falls back to prompting otherwise.
 
 ## Demo
 
